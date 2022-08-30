@@ -23,7 +23,7 @@ public class AppConfig extends WebMvcConfigurationSupport{
     {
         System.out.println("--->ViewResolver");
         InternalResourceViewResolver jspViewResolver = new InternalResourceViewResolver();
-        jspViewResolver.setPrefix("/webapp/WEB-INF/jsp/");
+        jspViewResolver.setPrefix("/WEB-INF/jsp/");
         jspViewResolver.setSuffix(".jsp");
         jspViewResolver.setViewClass(JstlView.class);
         System.out.println("--->SetViewClass");
