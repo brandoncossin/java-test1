@@ -19,6 +19,12 @@
         body{
             background-color: #808080;
         }
+        nav .navbar-nav li a{
+            color: white !important;
+        } 
+        .navbar-brand{
+            color: white !important;
+        } 
     </style>
 </head>
 

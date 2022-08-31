@@ -109,7 +109,7 @@
                     <td>${item.getPrice()}</td>
                     <td>${item.getQuantity()} ${item.getPhoneNumber()}</td>
                     <td>
-                        <button type="button" class="btn btn-danger">Remove</button>
+                        <button type="submit" class="btn btn-danger">Remove</button>
                     </td>
                     <input type="hidden" value=${item.getItemId()} name="item_id" path="item_id">
                     <input type="hidden" value=${item.getPhoneNumber()} name="phone_number" path="phone_number">

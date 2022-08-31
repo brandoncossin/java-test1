@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 	Database db = new Database();
-    @RequestMapping("/")
+    @GetMapping("/")
     public ModelAndView getIndex(HttpSession session){
         ModelAndView getIndexPage = new ModelAndView("index");
         getIndexPage.addObject("PageTitle", "Home");
@@ -139,11 +139,12 @@ public class IndexController {
 	}
 	@PostMapping("/cart")
 	public ModelAndView cartPage(@ModelAttribute("CartPageForm") CartPageForm CartPageForm, BindingResult result,
-	@RequestParam("product_id") int product_id, @RequestParam("phone_number") String phone_number, HttpSession session
+	@RequestParam("item_id") int item_id, @RequestParam("phone_number") String phone_number, HttpSession session
 	) throws SQLException {
 		//model.put("message", this.message);
 		ModelAndView getCartPage = new ModelAndView("cart"); 
-		System.out.println(product_id + "and user" + phone_number);
+		System.out.println(item_id + "and user" + phone_number);
+		db.removeItem(item_id, phone_number);
 		return getCartPage;
 	}
 	@GetMapping("/logout")

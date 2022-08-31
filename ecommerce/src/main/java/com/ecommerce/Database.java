@@ -89,7 +89,7 @@ public class Database {
         return rs;
     }
 
-    public void getAll() throws SQLException {
+    public ResultSet getAll() throws SQLException {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         //Getting the connection
         String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
@@ -97,11 +97,43 @@ public class Database {
         String SelectQ = "SELECT * FROM items;";
         PreparedStatement preparedStmt = con.prepareStatement(SelectQ);
         ResultSet rs = preparedStmt.executeQuery();
-        while (rs.next()) {
-            String name = rs.getString("name");
-            int price = rs.getInt("price");
-            String path = rs.getString("path");
-        }
+        return rs;
+    }
+
+    public ResultSet getByType(String x) throws SQLException {
+        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        //Getting the connection
+        String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
+        Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
+        String SelectQ = "SELECT * FROM items WHERE type = ?;";
+        PreparedStatement preparedStmt = con.prepareStatement(SelectQ);
+        preparedStmt.setString(1,x);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
+    public ResultSet getByBrand(String x) throws SQLException {
+        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        //Getting the connection
+        String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
+        Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
+        String SelectQ = "SELECT * FROM items WHERE brand = ?;";
+        PreparedStatement preparedStmt = con.prepareStatement(SelectQ);
+        preparedStmt.setString(1, x);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
+    public ResultSet getBySearch(String x) throws SQLException {
+        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        //Getting the connection
+        String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
+        Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
+        String SelectQ = "SELECT * FROM items WHERE name = ?;";
+        PreparedStatement preparedStmt = con.prepareStatement(SelectQ);
+        preparedStmt.setString(1,x);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
     }
 
     public ResultSet Validated(String x) throws SQLException {
@@ -156,14 +188,15 @@ public class Database {
         preparedStmt.executeUpdate();
     }
 
-    public void removeItem(int itemId) throws SQLException {
+    public void removeItem(int itemId, String user) throws SQLException {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         //Getting the connection
         String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
         Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
-        String DeleteQ = "DELETE FROM eCommerceDB.cart WHERE item_id = ?;";
+        String DeleteQ = "DELETE FROM eCommerceDB.cart WHERE item_id = ? AND customers_phone_number = ?;";
         PreparedStatement preparedStmt = con.prepareStatement(DeleteQ);
         preparedStmt.setInt(1, itemId);
+        preparedStmt.setString(2, user);
         preparedStmt.executeUpdate();
     }
 
