@@ -1,6 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="en">
-    <html xmlns:th="https://www.thymeleaf.org">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +22,6 @@
 <body>
     <!-- start #header -->
     <!--start #nav-bar -->
-
     <nav class="navbar navbar-expand-lg color-second-bg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Tech Fun House</a>
@@ -61,28 +64,28 @@
                     <!--<li class=\"nav-item\"><a class=\"nav-link\" href=\"profile.php\">$accountUsername</a></li> -->
                     <!--<li class=\"nav-item\"><a class=\"nav-link\" href=\"logout.php\">Log out</a></li>-->
                     <li class="nav-item"><a class="nav-link" href="signup">Sign up</a></li>
-                    <li class="nav-item"><a class="nav-link" href="signup">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login">Log In</a></li>
                 </ul>
                 </a>
             </div>
         </div>
     </nav>
-    </header>
-    <!--start of main-->
+
+
     <div class="d-flex justify-content-center mt-5">
         <section className="row justify-content-center">
-            <form className="form-container" action="" th:action="@{/login}" th:object="${login}" method="post">
+            <form id="login-form" method="post" className="form-container" action="/login" modelAttribute="LoginForm">
                 <div class="card-body">
                     <h3>Sign in to E-Commerce Tech Store</h3>
                     <h6 className="card-subtitle mb-2 text-muted">Welcome back. Sign in with your account.</h6>
                     <span id="errormessage"></span>
                     <div class="form-group">
                         <label for="userField">Phone Number</label>
-                        <input type="text" class="form-control" id="userField" placeholder="Enter Phone Number" th:field="*{phoneNumber}">
+                        <input type="text" class="form-control" id="userField" placeholder="Enter Phone Number" name="phone_number" path="phone_number">
                     </div>
                     <div class="form-group">
                         <label for="passwordField">Password</label>
-                        <input type="password" class="form-control" id="passwordField" placeholder="Enter Password" th:field="*{password}">
+                        <input type="password" class="form-control" id="passwordField" placeholder="Enter Password" name="password" path="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Log In</button>
                     <br></br>
@@ -92,6 +95,7 @@
 
         </section>
     </div>
+
 
 </body>
 
