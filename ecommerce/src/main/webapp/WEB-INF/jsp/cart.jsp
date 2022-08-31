@@ -19,15 +19,22 @@
         body{
             background-color: #808080;
         }
+        nav .navbar-nav li a{
+            color: white !important;
+        } 
+        .navbar-brand{
+            color: white !important;
+        } 
     </style>
 </head>
 
 <body>
     <!-- start #header -->
-    <!--start #nav-bar -->
-    <nav class="navbar navbar-expand-lg color-second-bg">
+     <!--start #nav-bar -->
+     <nav class="navbar navbar-expand-lg color-second-bg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Tech Fun House</a>
+            
+            <a class="navbar-brand" href="/">Tech Fun House</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -46,15 +53,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto ">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <!-- type Select -->
                     <li class="nav-item">
                         <a class="nav-link" id="Samsung-submit" type="submit" name="type-select"
                             value="Laptops">Laptops</a>
                     </li>
+                    <li class="nav-item">
                     <a class="nav-link" id="Samsung-submit" type="submit" name="type-select"
                         value="Cellphones">Cellphones</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" id="Microsoft-submit" type="submit" name="type-select"
                             value="Microsoft">Headphones</a>
@@ -78,7 +87,33 @@
             </div>
         </div>
     </nav>
-    <div>   
+    <div class="d-flex justify-content-center mt-5">
+        <div class="card-body">  
+        <hr>
+        <h1>Shopping Cart</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+            <c:forEach items="${cartSet}" var="item">
+                <tr>
+                    <td>${item.getName()}</td>
+                    <td>${item.getPrice()}</td>
+                    <td>${item.getQuantity()}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <hr>
+        <b>Order Summary: </b>
+        <hr>
+        <b>Total:$${requestScope.cartSum}</b>
+        </div> 
     </div>
 </body>
 

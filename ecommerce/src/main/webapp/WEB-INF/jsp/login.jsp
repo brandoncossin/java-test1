@@ -27,6 +27,7 @@
     <!--start #nav-bar -->
     <nav class="navbar navbar-expand-lg color-second-bg">
         <div class="container-fluid">
+            
             <a class="navbar-brand" href="index.html">Tech Fun House</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,15 +47,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto ">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <!-- type Select -->
                     <li class="nav-item">
                         <a class="nav-link" id="Samsung-submit" type="submit" name="type-select"
                             value="Laptops">Laptops</a>
                     </li>
+                    <li class="nav-item">
                     <a class="nav-link" id="Samsung-submit" type="submit" name="type-select"
                         value="Cellphones">Cellphones</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" id="Microsoft-submit" type="submit" name="type-select"
                             value="Microsoft">Headphones</a>
@@ -63,11 +66,16 @@
                         <a class="nav-link" id="Microsoft-submit" type="submit" name="type-select"
                             value="Accessories">Accessories</a>
                     </li>
-                    <!-- If already Logged in buttons to display-->
-                    <!--<li class=\"nav-item\"><a class=\"nav-link\" href=\"profile.php\">$accountUsername</a></li> -->
-                    <!--<li class=\"nav-item\"><a class=\"nav-link\" href=\"logout.php\">Log out</a></li>-->
-                    <li class="nav-item"><a class="nav-link" href="signup">Sign up</a></li>
+                    <c:choose>
+                    <c:when test="${LoggedIn == false}">
+                        <li class="nav-item"><a class="nav-link" href="signup">Sign up</a></li>
                     <li class="nav-item"><a class="nav-link" href="login">Log In</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item"><a class="nav-link" href="cart">Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
+                    </c:otherwise>
+                    </c:choose>
                 </ul>
                 </a>
             </div>

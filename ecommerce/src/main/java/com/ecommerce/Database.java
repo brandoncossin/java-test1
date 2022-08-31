@@ -89,6 +89,18 @@ public class Database {
 
     }
 
+    public ResultSet getCartAll(String user) throws SQLException {
+        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        //Getting the connection
+        String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
+        Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
+        String SelectQ = "SELECT item_id, price, name, quantity, phone_number FROM ecommercedb.items JOIN ecommercedb.cart USING(item_id) JOIN ecommercedb.customers ON ecommercedb.cart.customers_phone_number = ecommercedb.customers.phone_number WHERE phone_number = ?;";
+        PreparedStatement preparedStmt = con.prepareStatement(SelectQ);
+        preparedStmt.setString(1, user);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
     public void getAll() throws SQLException {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         //Getting the connection
@@ -161,24 +173,19 @@ public class Database {
         preparedStmt.executeUpdate();
     }
 
-    public int getSum(int itemId, String user) throws SQLException {
+    public int getSum(String user) throws SQLException {
         int sum = 0;
-        int price = 0;
-        int quantity = 0;
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         //Getting the connection
         String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
         Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
-        String SELECTQ = "SELECT * FROM eCommerceDB.getSum WHERE item_id = ? AND phone_number = ?;";
+        String SELECTQ = "SELECT SUM(price*quantity) AS total FROM ecommercedb.items JOIN ecommercedb.cart USING(item_id) WHERE customers_phone_number=? GROUP BY (customers_phone_number);";
         PreparedStatement preparedStmt = con.prepareStatement(SELECTQ);
-        preparedStmt.setInt(1, itemId);
-        preparedStmt.setString(2, user);
+        preparedStmt.setString(1, user);
         ResultSet rs = preparedStmt.executeQuery();
         while (rs.next()) {
-            price = rs.getInt("price");
-            quantity = rs.getInt("quantity");
+            sum = rs.getInt("total");
         }
-        sum = price * quantity;
         return sum;
     }
 

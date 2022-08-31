@@ -19,6 +19,12 @@
         body{
             background-color: #808080;
         }
+        nav .navbar-nav li a{
+  color: white !important;
+  } 
+  .navbar-brand{
+  color: white !important;
+  } 
     </style>
 </head>
 
@@ -27,6 +33,7 @@
     <!--start #nav-bar -->
     <nav class="navbar navbar-expand-lg color-second-bg">
         <div class="container-fluid">
+            
             <a class="navbar-brand" href="index.html">Tech Fun House</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,15 +53,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto ">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <!-- type Select -->
                     <li class="nav-item">
                         <a class="nav-link" id="Samsung-submit" type="submit" name="type-select"
                             value="Laptops">Laptops</a>
                     </li>
+                    <li class="nav-item">
                     <a class="nav-link" id="Samsung-submit" type="submit" name="type-select"
                         value="Cellphones">Cellphones</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" id="Microsoft-submit" type="submit" name="type-select"
                             value="Microsoft">Headphones</a>
@@ -92,7 +101,7 @@
               <span class="price">$379</span>
           </h5>
       <button type="submit" class="btn btn-warning my-3" name="add"> Add to Cart<i class="fas fa=shopping-cart"></i></button>
-      <input type='hidden' name='product_id' value=0>
+      <input type='hidden' name='product_id' value=1>
       <input type='hidden' name='product_price' value=379>
           </div>
           </div>
@@ -110,8 +119,26 @@
             <span class="price">$199</span>
         </h5>
     <button type="submit" class="btn btn-warning my-3" name="add"> Add to Cart<i class="fas fa=shopping-cart"></i></button>
-    <input type='hidden' name='product_id' value=1>
+    <input type='hidden' name='product_id' value=2>
     <input type='hidden' name='product_price' value=199>
+        </div>
+        </div>
+        </form>
+    </div>
+    <div class="col-md-3 col-sm-6 my-3 my-md-0">
+        <form action="/" method="post">
+        <div class="card shadow">
+        <div>
+        <img src="./upload/product1.png" class= "img-fluid card-img-top" style="height:400px;">
+        </div>
+        <div class= "card-body">
+        <h5 class="card-title">Airpod Max</h5>
+        <h5>
+            <span class="price">$549</span>
+        </h5>
+    <button type="submit" class="btn btn-warning my-3" name="add"> Add to Cart<i class="fas fa=shopping-cart"></i></button>
+    <input type='hidden' name='product_id' value=3>
+    <input type='hidden' name='product_price' value=549>
         </div>
         </div>
         </form>

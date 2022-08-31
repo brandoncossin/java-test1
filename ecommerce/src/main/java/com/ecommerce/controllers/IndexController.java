@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ecommerce.models.SignupForm;
 import com.ecommerce.models.LoginForm;
 import com.ecommerce.models.ProductForm;
+import com.ecommerce.models.CartItem;
 
 import com.ecommerce.Database;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -94,14 +101,48 @@ public class IndexController {
 		return "login";
 	}
 	@GetMapping("/cart")
-	public String cartPage(HttpSession session) {		
+	public ModelAndView cartPage(HttpSession session) throws SQLException {		
 		if(session.getAttribute("user") == null){
-			return "index";
+			ModelAndView getIndexPage = new ModelAndView("index");
+			return getIndexPage;
 		}
 		else{
 			ModelAndView getCartPage = new ModelAndView("cart");
 			getCartPage.addObject("LoggedIn", true);
-			return "cart";
+			String userName=(String)session.getAttribute("user");
+			//System.out.println(db.getCartAll(name));
+			ResultSet resultSet = db.getCartAll(userName);
+			List<CartItem> cartList = new ArrayList<>();
+			while (resultSet.next()) {
+				String name, phone_number;
+				int item_id, price, quantity;
+				item_id = resultSet.getInt("item_id");
+				price = resultSet.getInt("price");
+				quantity = resultSet.getInt("quantity");
+				name = resultSet.getString("name");
+				phone_number = resultSet.getString("phone_number");
+				CartItem item= new CartItem();
+				item.setItemId(item_id);
+				item.setPrice(price);
+				item.setName(name);
+				item.setQuantity(quantity);
+				item.setPhoneNumber(phone_number);				
+				cartList.add(item);
+				System.out.println(item);
+				}
+			ResultSetMetaData rsmd = resultSet.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			while (resultSet.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					if (i > 1) System.out.print(",  ");
+					String columnValue = resultSet.getString(i);
+					System.out.print(columnValue + " " + rsmd.getColumnName(i));
+				}
+				System.out.println("");
+			}
+			getCartPage.addObject("cartSet", cartList);
+			getCartPage.addObject("cartSum", db.getSum(userName));
+			return getCartPage;
 		}
 	}
 	@GetMapping("/logout")
