@@ -16,6 +16,9 @@
         .card-body{ 
             background: #00A5C4;
             border-radius: 10px;}
+        body{
+            background-color: #808080;
+        }
     </style>
 </head>
 
