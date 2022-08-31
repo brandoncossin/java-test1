@@ -93,7 +93,7 @@
           <form action="/" method="post">
           <div class="card shadow">
           <div>
-          <img src="img/product0.png" class= "img-fluid card-img-top" style="height:400px;">
+          <img src="../images/product0.png" class= "img-fluid card-img-top" style="height:400px;">
           </div>
           <div class= "card-body">
           <h5 class="card-title">Bose Noise Cancelling Headphones 700</h5>
@@ -111,7 +111,7 @@
         <form action="/" method="post">
         <div class="card shadow">
         <div>
-        <img src="./upload/product1.png" class= "img-fluid card-img-top" style="height:400px;">
+        <img src="../images/product1.png" class= "img-fluid card-img-top" style="height:400px;">
         </div>
         <div class= "card-body">
         <h5 class="card-title">Beats Solo</h5>
@@ -129,7 +129,7 @@
         <form action="/" method="post">
         <div class="card shadow">
         <div>
-        <img src="./upload/product1.png" class= "img-fluid card-img-top" style="height:400px;">
+        <img src="../images/product2.png" class= "img-fluid card-img-top" style="height:400px;">
         </div>
         <div class= "card-body">
         <h5 class="card-title">Airpod Max</h5>

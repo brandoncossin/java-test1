@@ -9,6 +9,7 @@ import com.ecommerce.models.SignupForm;
 import com.ecommerce.models.LoginForm;
 import com.ecommerce.models.ProductForm;
 import com.ecommerce.models.CartItem;
+import com.ecommerce.models.CartPageForm;
 
 import com.ecommerce.Database;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,7 +97,7 @@ public class IndexController {
 	@RequestParam("password") String password) throws SQLException {
 		//model.put("message", this.message);
 		System.out.println(phone_number);
-		String hashed_password = BCrypt.gensalt();
+		String hashed_password = BCrypt.hashpw(password,BCrypt.gensalt());
 		db.Insert(phone_number, first_name, last_name, hashed_password);
 		return "login";
 	}
@@ -130,20 +131,20 @@ public class IndexController {
 				cartList.add(item);
 				System.out.println(item);
 				}
-			ResultSetMetaData rsmd = resultSet.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			while (resultSet.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
-					if (i > 1) System.out.print(",  ");
-					String columnValue = resultSet.getString(i);
-					System.out.print(columnValue + " " + rsmd.getColumnName(i));
-				}
-				System.out.println("");
-			}
+			
 			getCartPage.addObject("cartSet", cartList);
 			getCartPage.addObject("cartSum", db.getSum(userName));
 			return getCartPage;
 		}
+	}
+	@PostMapping("/cart")
+	public ModelAndView cartPage(@ModelAttribute("CartPageForm") CartPageForm CartPageForm, BindingResult result,
+	@RequestParam("product_id") int product_id, @RequestParam("phone_number") String phone_number, HttpSession session
+	) throws SQLException {
+		//model.put("message", this.message);
+		ModelAndView getCartPage = new ModelAndView("cart"); 
+		System.out.println(product_id + "and user" + phone_number);
+		return getCartPage;
 	}
 	@GetMapping("/logout")
 	public String logoutFunction(HttpSession session) {	

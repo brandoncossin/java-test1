@@ -75,19 +75,7 @@ public class Database {
         preparedStmt.executeUpdate();
     }
 
-    public ResultSet Validated(String x) throws SQLException {
-        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-        //Getting the connection
-        String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
-        Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
-        String SelectQ = "SELECT * FROM eCommerceDB.customers WHERE phone_number=?";
-        PreparedStatement preparedStmt = con.prepareStatement(SelectQ);
-        preparedStmt.setString(1, x);
-        ResultSet rs = preparedStmt.executeQuery();
-        System.out.println(rs);
-        return rs;
-
-    }
+    
 
     public ResultSet getCartAll(String user) throws SQLException {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -116,19 +104,37 @@ public class Database {
         }
     }
 
+    public ResultSet Validated(String x) throws SQLException {
+        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        //Getting the connection
+        String mysqlUrl = "jdbc:mysql://shayne-brandon-server.mysql.database.azure.com:3306?useSSL=true";
+        Connection con = DriverManager.getConnection(mysqlUrl, "skanner", "Password12345");
+        String SelectQ = "SELECT * FROM eCommerceDB.customers WHERE phone_number=?";
+        PreparedStatement preparedStmt = con.prepareStatement(SelectQ);
+        preparedStmt.setString(1, x);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println(rs);
+        return rs;
+
+    }
+
     public boolean login(String username, String password) throws SQLException {
         ResultSet result = Validated(username);
         boolean valid = false;
         if(result == null){
+            System.out.print("flase cause null");
             valid = false;
         }
         else{
             while (result.next()) {
                 String pwd = result.getString("password");
+                System.out.println(pwd);
                 if (BCrypt.checkpw(password, pwd)) {
+                    System.out.println("BCRYPT true");
                     valid = true;
                 }
                 else {
+                    System.out.println("BCRYPT false");
                     valid = false;
                 }
             }

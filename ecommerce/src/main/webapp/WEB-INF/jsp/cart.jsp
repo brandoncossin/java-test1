@@ -97,15 +97,24 @@
                   <th scope="col">Item</th>
                   <th scope="col">Price</th>
                   <th scope="col">Quantity</th>
+                  <th scope="col"></th>
+
                 </tr>
               </thead>
               <tbody>
             <c:forEach items="${cartSet}" var="item">
+                <form id="cart-form" method="post" className="form-container" action="/cart" modelAttribute="CartPageForm">
                 <tr>
-                    <td>${item.getName()}</td>
+                    <td>${item.getName()} ${item.getItemId()}</td>
                     <td>${item.getPrice()}</td>
-                    <td>${item.getQuantity()}</td>
+                    <td>${item.getQuantity()} ${item.getPhoneNumber()}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger">Remove</button>
+                    </td>
+                    <input type="hidden" value=${item.getItemId()} name="item_id" path="item_id">
+                    <input type="hidden" value=${item.getPhoneNumber()} name="phone_number" path="phone_number">
                 </tr>
+            </form>
             </c:forEach>
             </tbody>
         </table>
