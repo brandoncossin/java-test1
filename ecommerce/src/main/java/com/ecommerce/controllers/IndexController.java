@@ -12,25 +12,37 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class IndexController {
     @RequestMapping("/")
-    public ModelAndView getIndex(){
+    public ModelAndView getIndex(HttpSession session){
         ModelAndView getIndexPage = new ModelAndView("index");
         getIndexPage.addObject("PageTitle", "Home");
+		if(session.getAttribute("user") != null){
+			getIndexPage.addObject("LoggedIn", true);
+			System.out.println("Activated");
+		}
+		else{
+			getIndexPage.addObject("LoggedIn", false);
+		}
         System.out.println("In index page");
         return getIndexPage;
     }
     @GetMapping("/login")
-	public String loginFormPage() {
+	public String loginFormPage(HttpSession session) {
 		System.out.println("in login");
+		session.setAttribute("user", null);
 		return "login";
 	}
 	@PostMapping("/login")
 	public String loginPage(@ModelAttribute("LoginForm") LoginForm LoginForm, BindingResult result,
 	@RequestParam("phone_number") String phone_number,
-	@RequestParam("password") String password) {
+	@RequestParam("password") String password,
+	HttpSession session) {
 		System.out.println(phone_number + " " + password);
+		session.setAttribute("user", phone_number);
 		return "index";
 	}
 	@GetMapping("/signup")
@@ -47,5 +59,21 @@ public class IndexController {
 		//model.put("message", this.message);
 		System.out.println(phone_number);
 		return "login";
+	}
+	@GetMapping("/cart")
+	public String cartPage(HttpSession session) {		
+		if(session.getAttribute("user") == null){
+			return "index";
+		}
+		else{
+			ModelAndView getCartPage = new ModelAndView("cart");
+			getCartPage.addObject("LoggedIn", true);
+			return "cart";
+		}
+	}
+	@GetMapping("/logout")
+	public String logoutFunction(HttpSession session) {	
+		session.removeAttribute("user");
+		return "index";
 	}
 }

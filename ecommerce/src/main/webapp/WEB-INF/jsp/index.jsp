@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
     <head>
         <title>Hello WebSocket</title>
@@ -54,11 +55,16 @@
                     <a class="nav-link" 
                     id = "Microsoft-submit" type="submit" name="type-select" value="Accessories">Accessories</a>
                   </li>
-                  <!-- If already Logged in buttons to display-->
-                  <!--<li class=\"nav-item\"><a class=\"nav-link\" href=\"profile.php\">$accountUsername</a></li> -->
-                  <!--<li class=\"nav-item\"><a class=\"nav-link\" href=\"logout.php\">Log out</a></li>-->
-                  <li class="nav-item"><a class="nav-link" href="signup">Sign up</a></li>
-                  <li class="nav-item"><a class="nav-link" href="login">Log In</a></li>
+                  <c:choose>
+                    <c:when test="${LoggedIn == false}">
+                        <li class="nav-item"><a class="nav-link" href="signup">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login">Log In</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item"><a class="nav-link" href="cart">Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
+                    </c:otherwise>
+                    </c:choose>
                 </ul>
           </a>
               </div>
